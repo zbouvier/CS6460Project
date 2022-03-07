@@ -1,0 +1,64 @@
+*.py[cod]
+
+# C extensions
+*.so
+
+# Packages
+*.egg
+*.egg-info
+build
+eggs
+parts
+bin
+var
+sdist
+develop-eggs
+.installed.cfg
+lib
+lib64
+
+# Installer logs
+pip-log.txt
+
+# Unit test / coverage reports
+.coverage
+.tox
+nosetests.xml
+
+# Translations
+*.mo
+
+# Django stuff:
+__pycache__/*
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Complexity
+output/*.html
+output/*/index.html
+
+# Sphinx
+docs/_build
+
+.webassets-cache
+
+# Virtualenvs
+env/
+
+# npm
+/node_modules/
+
+# webpack-built files
+/lecture_shortener/static/build/
+
+# Configuration
+.env
+
+# Development database
+*.db
