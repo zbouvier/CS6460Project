@@ -7,17 +7,26 @@
       <!-- Center h1 title-->
       <div class="row">
         <div class="col-md-12">
-          <h1 class="display-5" style="text-align: center;">Welcome to Lecture Shortener</h1>
+          <h1 class="display-5" style="text-align: center;">{{filename}}</h1>
         </div>
     </div>
 </div><!-- /.jumbotron -->
 <title>Python Flask - Video Upload and Play Example</title>
 {% if filename %}
-	<div style="margin: 10px auto;">
-		<video autoplay="autoplay" controls="controls" preload="preload">
-			<source src="{{ url_for('public.display_video', filename=filename) }}" type="video/mp4"></source>
-		</video>
+<!-- Center div -->
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="center">
+				<div style="margin: 12px auto;">
+					<video style="max-width: 55%" autoplay="autoplay" controls="controls" preload="preload">
+						<source src="{{ url_for('public.display_video', filename=filename) }}" type="video/mp4"></source>
+					</video>
+				</div>
+			</div>
+		</div>
 	</div>
+</div>
 {% endif %}
 {% endblock %}
 

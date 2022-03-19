@@ -27,7 +27,7 @@ def create_app(config_object="lecture_shortener.settings"):
     app = Flask(__name__.split(".")[0])
     app.config.from_object(config_object)
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 10240 * 10240
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)

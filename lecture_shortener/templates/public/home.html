@@ -2,47 +2,33 @@
 {% extends "layout.html" %}
 {% block content %}
 <!-- Main jumbotron for a primary marketing message or call to action -->
+<script type="text/javascript">
+  document.getElementById("file").onchange = function() {
+    document.getElementById("form").submit();
+};
+</script>
 <div class="jumbotron" style="">
     <div class="container">
       <!-- Center h1 title-->
       <div class="row">
         <div class="col-md-12">
-          <h1 class="display-5" style="text-align: center;">Welcome to Lecture Shortener</h1>
+          <h1 class="display-4" style="text-align: center;">Select a video to upload and process</h1>
         </div>
     </div>
 </div><!-- /.jumbotron -->
-<title>Python Flask - Video Upload and Play Example</title>
-<h2>Select a video to upload and play</h2>
-<p>
-	{% with messages = get_flashed_messages() %}
-	  {% if messages %}
-		<ul>
-		{% for message in messages %}
-		  <li>{{ message }}</li>
-		{% endfor %}
-		</ul>
-	  {% endif %}
-	{% endwith %}
-</p>
-{% if filename %}
-	<div style="margin: 10px auto;">
-		<video autoplay="autoplay" controls="controls" preload="preload">
-			<source src="{{ url_for('public.display_video', filename=filename) }}" type="video/mp4"></source>
-		</video>
+<div class="container">
+	<div class="row">
+		<div class="col-md-15">
+			<div class="center">
+        <form id="form" method="post" action="/" enctype="multipart/form-data">
+          <input type="hidden" name="type" value="uploadForm" />
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+          <input id="file" type="file" onchange="form.submit()" name="file" autocomplete="off" required>
+        </form>
+				</div>
+			</div>
+		</div>
 	</div>
-{% endif %}
-<form method="post" action="/" enctype="multipart/form-data">
-  <input type="hidden" name="type" value="uploadForm" />
-  <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
-    <dl>
-		<p>
-			<input type="file" name="file" autocomplete="off" required>
-		</p>
-    </dl>
-    <p>
-		<input type="submit" value="Upload">
-	</p>
-</form>
-</div>
+
 {% endblock %}
 
