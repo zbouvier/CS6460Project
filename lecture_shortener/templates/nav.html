@@ -33,6 +33,7 @@
     </ul>
     {% elif form %}
     <form class="form-inline" id="loginForm" method="POST" action="{{ url_for('public.home') }}" role="login">
+      <input type="hidden" name="type" value="loginForm" />
       <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
       <div class="input-group mb-2 mr-sm-2">
         {{ form.username(placeholder="Username", class_="form-control mr-sm-3 my-auto") }} &nbsp;

@@ -4,7 +4,7 @@ import logging
 import sys
 
 from flask import Flask, render_template
-
+from os.path import join, dirname, realpath
 from lecture_shortener import commands, public, user
 from lecture_shortener.extensions import (
     bcrypt,
@@ -23,8 +23,11 @@ def create_app(config_object="lecture_shortener.settings"):
 
     :param config_object: The configuration object to use.
     """
+    UPLOAD_FOLDER = join(dirname(realpath(__file__)), 'static/uploads/')
     app = Flask(__name__.split(".")[0])
     app.config.from_object(config_object)
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
