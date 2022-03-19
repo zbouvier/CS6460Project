@@ -71,6 +71,7 @@ def register_errorhandlers(app):
         app.errorhandler(errcode)(render_error)
     return None
 
+
 def register_shellcontext(app):
     """Register shell context objects."""
 
