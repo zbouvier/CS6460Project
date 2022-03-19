@@ -29,18 +29,19 @@ def load_user(user_id):
     return User.get_by_id(int(user_id))
 
 
-@blueprint.route('/')
+@blueprint.route("/")
 def upload_form():
-	return render_template('public/home.html')
+    return render_template("public/home.html")
+
 
 @blueprint.route("/", methods=["GET", "POST"])
 def home():
     """Home page."""
     form = LoginForm(request.form)
-    
+
     # Handle logging in
-    
-    if request.method == "POST" and request.form['type'] == "loginForm":
+
+    if request.method == "POST" and request.form["type"] == "loginForm":
         current_app.logger.info("Hello from the home page!")
         if form.validate_on_submit():
             login_user(form.user)
@@ -49,41 +50,46 @@ def home():
             return redirect(redirect_url)
         else:
             flash_errors(form)
-    elif request.method == "POST" and request.form['type'] == "uploadForm":
+    elif request.method == "POST" and request.form["type"] == "uploadForm":
         current_app.logger.info(request)
-        if 'file' not in request.files:
-            flash('No file part')
+        if "file" not in request.files:
+            flash("No file part")
             return redirect(request.url)
-        file = request.files['file']
-        if file.filename == '':
-            flash('No image selected for uploading')
+        file = request.files["file"]
+        if file.filename == "":
+            flash("No image selected for uploading")
             return redirect(request.url)
         else:
             filename = secure_filename(file.filename)
-            file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-            current_app.logger.info('upload_video filename: ' + filename)
-            flash('Video successfully uploaded and displayed below')
-            return render_template('public/upload.html', filename=filename)
+            file.save(os.path.join(current_app.config["UPLOAD_FOLDER"], filename))
+            current_app.logger.info("upload_video filename: " + filename)
+            flash("Video successfully uploaded and displayed below")
+            return render_template("public/upload.html", filename=filename)
     return render_template("public/upload.html", form=form)
 
+
 def upload_video():
-    if 'file' not in request.files:
-        flash('No file part')
+    if "file" not in request.files:
+        flash("No file part")
         return redirect(request.url)
-    file = request.files['file']
-    if file.filename == '':
-        flash('No image selected for uploading')
+    file = request.files["file"]
+    if file.filename == "":
+        flash("No image selected for uploading")
         return redirect(request.url)
     else:
         filename = secure_filename(file.filename)
-        file.save(os.path.join(current_app.config['UPLOAD_FOLDER'], filename))
-        current_app.logger.info('upload_video filename: ' + filename)
-        flash('Video successfully uploaded and displayed below')
-        return render_template('public/upload.html', filename=filename)
-@blueprint.route('/display/<filename>')
+        file.save(os.path.join(current_app.config["UPLOAD_FOLDER"], filename))
+        current_app.logger.info("upload_video filename: " + filename)
+        flash("Video successfully uploaded and displayed below")
+        return render_template("public/upload.html", filename=filename)
+
+
+@blueprint.route("/display/<filename>")
 def display_video(filename):
-	#print('display_video filename: ' + filename)
-	return redirect(url_for('static', filename='uploads/' + filename), code=301)
+    # print('display_video filename: ' + filename)
+    return redirect(url_for("static", filename="uploads/" + filename), code=301)
+
+
 @blueprint.route("/logout/")
 @login_required
 def logout():

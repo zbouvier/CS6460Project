@@ -24,11 +24,11 @@ def create_app(config_object="lecture_shortener.settings"):
 
     :param config_object: The configuration object to use.
     """
-    UPLOAD_FOLDER = join(dirname(realpath(__file__)), 'static/uploads/')
+    UPLOAD_FOLDER = join(dirname(realpath(__file__)), "static/uploads/")
     app = Flask(__name__.split(".")[0])
     app.config.from_object(config_object)
-    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-    app.config['MAX_CONTENT_LENGTH'] = 16 * 10240 * 10240
+    app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+    app.config["MAX_CONTENT_LENGTH"] = 16 * 10240 * 10240
     register_extensions(app)
     register_blueprints(app)
     register_errorhandlers(app)
