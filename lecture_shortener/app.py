@@ -2,9 +2,10 @@
 """The app module, containing the app factory function."""
 import logging
 import sys
+from os.path import dirname, join, realpath
 
 from flask import Flask, render_template
-from os.path import join, dirname, realpath
+
 from lecture_shortener import commands, public, user
 from lecture_shortener.extensions import (
     bcrypt,

@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
+import os
+
 from flask import (
     Blueprint,
     current_app,
@@ -11,12 +13,13 @@ from flask import (
 )
 from flask_login import login_required, login_user, logout_user
 from werkzeug.utils import secure_filename
+
 from lecture_shortener.extensions import login_manager
 from lecture_shortener.public.forms import LoginForm
 from lecture_shortener.user.forms import RegisterForm
 from lecture_shortener.user.models import User
 from lecture_shortener.utils import flash_errors
-import os
+
 blueprint = Blueprint("public", __name__, static_folder="../static")
 
 
