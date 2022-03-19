@@ -24,10 +24,10 @@ def create_app(config_object="lecture_shortener.settings"):
 
     :param config_object: The configuration object to use.
     """
-    UPLOAD_FOLDER = join(dirname(realpath(__file__)), "static/uploads/")
+    upload_folder = join(dirname(realpath(__file__)), "static/uploads/")
     app = Flask(__name__.split(".")[0])
     app.config.from_object(config_object)
-    app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
+    app.config["UPLOAD_FOLDER"] = upload_folder
     app.config["MAX_CONTENT_LENGTH"] = 16 * 10240 * 10240
     register_extensions(app)
     register_blueprints(app)
@@ -70,7 +70,6 @@ def register_errorhandlers(app):
     for errcode in [401, 404, 500]:
         app.errorhandler(errcode)(render_error)
     return None
-
 
 def register_shellcontext(app):
     """Register shell context objects."""

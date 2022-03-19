@@ -31,6 +31,7 @@ def load_user(user_id):
 
 @blueprint.route("/")
 def upload_form():
+    """Renders the home page."""
     return render_template("public/home.html")
 
 
@@ -69,6 +70,7 @@ def home():
 
 
 def upload_video():
+    """Uploads video."""
     if "file" not in request.files:
         flash("No file part")
         return redirect(request.url)
@@ -86,6 +88,7 @@ def upload_video():
 
 @blueprint.route("/display/<filename>")
 def display_video(filename):
+    """Grabs video from folder and displays it."""
     # print('display_video filename: ' + filename)
     return redirect(url_for("static", filename="uploads/" + filename), code=301)
 
