@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Public section, including homepage and signup."""
 import os
+from unsilence import Unsilence
 
 from flask import (
     Blueprint,
@@ -61,12 +62,16 @@ def home():
             flash("No image selected for uploading")
             return redirect(request.url)
         else:
+            
             filename = secure_filename(file.filename)
             file.save(os.path.join(current_app.config["UPLOAD_FOLDER"], filename))
+            u = Unsilence(os.path.join(current_app.config["UPLOAD_FOLDER"],filename))
+            u.detect_silence()
+            est_time = u.estimate_time(audible_speed=1, silent_speed=2)
+            u.render_media(os.path.join(current_app.config["UPLOAD_FOLDER"],filename), audible_speed=1 ,silence_speed=8, audible_volume=2, silent_volume=0)
             current_app.logger.info("upload_video filename: " + filename)
             flash("Video successfully uploaded and displayed below")
             return render_template("public/upload.html", filename=filename)
-    return render_template("public/upload.html", form=form)
 
 
 def upload_video():
@@ -84,8 +89,28 @@ def upload_video():
         current_app.logger.info("upload_video filename: " + filename)
         flash("Video successfully uploaded and displayed below")
         return render_template("public/upload.html", filename=filename)
-
-
+def upload_cut_video():
+    """Uploads cut video."""
+    current_app.logger.info(request)
+    
+    if "file" not in request.files:
+        flash("No file part")
+        return redirect(request.url)
+    file = request.files["file"]
+    if file.filename == "":
+        flash("No image selected for uploading")
+        return redirect(request.url)
+    else:
+        
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(current_app.config["UPLOAD_FOLDER"], filename))
+        u = Unsilence(os.path.join(current_app.config["UPLOAD_FOLDER"],filename))
+        u.detect_silence()
+        est_time = u.estimate_time(audible_speed=1, silent_speed=2)
+        u.render_media(os.path.join(current_app.config["UPLOAD_FOLDER"],filename), audible_speed=1 ,silence_speed=8, audible_volume=2, silent_volume=0)
+        current_app.logger.info("upload_video filename: " + filename)
+        flash("Video successfully uploaded and displayed below")
+        return render_template("public/upload.html", filename=filename)
 @blueprint.route("/display/<filename>")
 def display_video(filename):
     """Grabs video from folder and displays it."""

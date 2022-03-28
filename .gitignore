@@ -16,7 +16,7 @@ develop-eggs
 .installed.cfg
 lib
 lib64
-static/uploads/*
+lecture_shortener/static/uploads/*
 # Installer logs
 pip-log.txt
 

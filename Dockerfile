@@ -14,7 +14,12 @@ RUN true
 COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
 COPY requirements requirements
 RUN pip install --no-cache -r requirements/prod.txt
+RUN apt-get -y update
 
+RUN apt-get install -y ffmpeg
+RUN apt-get install -y git
+RUN git clone -b master https://github.com/zbouvier/unsilence.git unsilence && cd unsilence && pip3 install -r requirements.txt && python3 setup.py install
+RUN cd ..
 COPY package.json ./
 RUN npm install
 
